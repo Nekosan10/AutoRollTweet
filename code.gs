@@ -1,6 +1,6 @@
 var twitter = TwitterWebService.getInstance(
-  'u3LAsOHRrMysWBar90SDnPAIG',       // 作成したアプリケーションのConsumer Key
-  'OGk59TM3r78xA5iF30kyLlg2c1mTksyR3MXMnODPUJAcfsrK6J'  // 作成したアプリケーションのConsumer Secret
+  '###',       // 作成したアプリケーションのConsumer Key
+  '###'  // 作成したアプリケーションのConsumer Secret
 );
 
 // 認証
@@ -26,12 +26,21 @@ function postUpdateStatus(str) {
     payload: { status: str }
   });
 }
+function getSheet(type,num){
+  var sheet= SpreadsheetApp.openById('シートのID').getSheetByName("ActList"); //フォームの解答シート取得
+  var act;
+  if(type=="ran"){
+    var sheetmax=sheet.getLastRow();
+    var ran=Math.floor(Math.random()*((sheetmax)-2)+2);
+    act=sheet.getRange(ran,2,1,7).getValues();
+  }else if(type=="check"){
+    act=sheet.getRange(num,2,1,7).getValues();
+  }
+  return act;
+}
 
-function randomroll(){
-  var sheet= SpreadsheetApp.openById('1o6oPQ3wCB2MCc9zc8U3eHKKSfNc5HDdqGji_YFqf2XY').getSheetByName("ActList"); //フォームの解答シート取得
-  var sheetmax=sheet.getLastRow();
-  var ran=Math.floor(Math.random()*((sheetmax)-2)+2);
-  var act=sheet.getRange(ran,2,1,7).getValues();
+function randomroll(){  
+  var act=getSheet("ran",0);
   var result=setdice(act[0][2],act[0][3],act[0][4],act[0][5],act[0][6]);
   var str=act[0][0]+"は、"+act[0][1]+"【成功値："+act[0][2]+" 補正値："+act[0][6]+"】をする為に"+act[0][4]+act[0][5]+"をロールした。\n";
   if(act[0][4]==1){
@@ -45,9 +54,7 @@ function randomroll(){
 }
 
 function debugroll(num){
-  var sheet= SpreadsheetApp.openById('1o6oPQ3wCB2MCc9zc8U3eHKKSfNc5HDdqGji_YFqf2XY').getSheetByName("ActList"); //フォームの解答シート取得
-  var sheetmax=sheet.getLastRow();
-  var act=sheet.getRange(num,2,1,7).getValues();
+  var act=getSheet("check",num);
   num=num-0;
   var result=setdice(act[0][2],act[0][3],act[0][4],act[0][5],act[0][6]+0);
   var str=act[0][0]+"は、"+act[0][1]+"【成功値："+act[0][2]+" 補正値："+act[0][6]+"】をする為に"+act[0][4]+act[0][5]+"をロールした。\n";
