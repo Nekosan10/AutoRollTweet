@@ -1,6 +1,6 @@
 var twitter = TwitterWebService.getInstance(
-  'u3LAsOHRrMysWBar90SDnPAIG',       // 作成したアプリケーションのConsumer Key
-  'OGk59TM3r78xA5iF30kyLlg2c1mTksyR3MXMnODPUJAcfsrK6J'  // 作成したアプリケーションのConsumer Secret
+  'ConsumerKey',       // 作成したアプリケーションのConsumer Key
+  'ConsumerSecret'  // 作成したアプリケーションのConsumer Secret
 );
 
 // 認証
@@ -28,7 +28,7 @@ function postUpdateStatus(str) {
 }
 
 function getSheet(type,num){
-    var sheet= SpreadsheetApp.openById('1o6oPQ3wCB2MCc9zc8U3eHKKSfNc5HDdqGji_YFqf2XY').getSheetByName("ActList"); //フォームの解答シート取得
+    var sheet= SpreadsheetApp.openById('スプレッドシートリンク').getSheetByName("シート名"); //フォームの解答シート取得
   var act;
   if(type=="ran"){
     var sheetmax=sheet.getLastRow();
